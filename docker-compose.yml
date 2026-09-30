@@ -1,0 +1,14 @@
+services:
+  hydrus-danbooru-bridge:
+    build: .
+    image: hydrus-danbooru-bridge:latest
+    container_name: hydrus-danbooru-bridge
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    env_file: .env
+    # Lets the container reach a Hydrus client running on the host machine
+    # (HYDRUS_URL=http://host.docker.internal:45869). Works on Docker Desktop
+    # natively and on Linux via host-gateway.
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
