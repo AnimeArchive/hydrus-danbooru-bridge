@@ -1,7 +1,8 @@
 services:
   hydrus-danbooru-bridge:
-    build: .
-    image: hydrus-danbooru-bridge:latest
+    image: ghcr.io/animearchive/hydrus-danbooru-bridge:latest
+    # To build from source instead of pulling, replace the line above with:
+    # build: .
     container_name: hydrus-danbooru-bridge
     restart: unless-stopped
     ports:

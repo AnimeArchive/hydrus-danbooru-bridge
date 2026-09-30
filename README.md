@@ -19,11 +19,21 @@ and browse, search and download your Hydrus library as if it were a Danbooru.
    - **edit file tags** (required for tag autocomplete, and for tag edits)
    - **edit file ratings** (favorites / votes)
    - **import and edit urls** (setting a post's source)
-2. Configure and start:
+2. Configure and start. The prebuilt image is published to GitHub Container Registry
+   for `linux/amd64` and `linux/arm64`:
    ```bash
    cp .env.example .env        # set HYDRUS_ACCESS_KEY and BRIDGE_API_KEY
-   docker compose up -d --build
+   docker compose up -d        # pulls ghcr.io/animearchive/hydrus-danbooru-bridge:latest
    ```
+   Or without compose:
+   ```bash
+   docker run -d --name hydrus-danbooru-bridge -p 8000:8000 --env-file .env \
+     --add-host host.docker.internal:host-gateway \
+     ghcr.io/animearchive/hydrus-danbooru-bridge:latest
+   ```
+   Update with `docker compose pull && docker compose up -d`. Image tags: `latest` (main
+   branch), `X.Y.Z` / `X.Y` (release tags `vX.Y.Z`), and `sha-<commit>`. To build from source
+   instead, use `build: .` in `docker-compose.yml`.
 3. In your client, add a **Danbooru (2.0)** site with URL `http://<host>:8000`,
    username = `BRIDGE_LOGIN`, API key = `BRIDGE_API_KEY`.
 
